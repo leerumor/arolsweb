@@ -1,0 +1,9 @@
+venv
+.DS_Store
+.idea
+db.sqlite3
+*.zip
+data
+*.pyc
+static/admin
+static/xadmin
