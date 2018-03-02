@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#coding:utf-8
 import xadmin
 from xadmin import views
 from xadmin.plugins.auth import UserAdmin
@@ -11,8 +13,8 @@ class BaseSetting:
 
 
 class GlobalSettings:
-    site_title = '慕学后台管理系统'
-    site_footer = '慕学在线网'
+    site_title = 'AROLS后台管理系统'
+    site_footer = 'AROLS自适应学习平台'
     menu_style = 'accordion'
 # ------
 

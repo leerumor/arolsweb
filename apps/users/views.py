@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#coding:utf-8
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.backends import ModelBackend
@@ -195,6 +197,10 @@ class UserInfoView(LoginRequiredMixin, View):
 
         return HttpResponse(json.dumps(res), content_type='application/json')
 
+# 在线学习风格
+class UserOlsView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'usercenter-ols.html')
 
 # 用户修改头像
 class UploadImageView(LoginRequiredMixin, View):

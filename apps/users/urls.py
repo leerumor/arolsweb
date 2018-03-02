@@ -1,13 +1,18 @@
+#!/usr/bin/python
+#coding:utf-8
 __author__ = 'zaxlct'
 __date__ = '2017/4/9 上午11:55'
 
 from django.conf.urls import url, include
-from .views import UserInfoView, UploadImageView, UpdatePwdView, SendEmailCodeView, UpdateEmailView, MyCourseView
+from .views import UserInfoView, UserOlsView, UploadImageView, UpdatePwdView, SendEmailCodeView, UpdateEmailView, MyCourseView
 from .views import MyFavOrgView, MyFavTeacherView, MyFavCourseView, MyMessageView
 
 urlpatterns = [
     # 用户信息
     url(r'^info/$', UserInfoView.as_view(), name='user_info'),
+
+    # 用户学习风格
+    url(r'^ols/$', UserOlsView.as_view(), name='user_ols'),
 
     # 用户头像修改
     url(r'^image/upload/$', UploadImageView.as_view(), name='image_upload'),

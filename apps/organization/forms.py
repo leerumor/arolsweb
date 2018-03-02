@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#coding:utf-8
 __author__ = 'zaxlct'
 __date__ = '2017/4/6 下午12:14'
 

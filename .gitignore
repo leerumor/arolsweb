@@ -1,4 +1,5 @@
 venv
+p3env
 .DS_Store
 .idea
 db.sqlite3

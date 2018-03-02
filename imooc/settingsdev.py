@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#coding:utf-8
 from .settings import *
 
 # DEBUG=False 不会用自带的 server 去 server js/css 等静态文件
