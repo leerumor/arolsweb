@@ -15,8 +15,23 @@ from utils.mixin_utils import LoginRequiredMixin
 
 from keras.models import load_model
 import numpy as np
+import gensim
+import traceback
+import os
 # Create your views here.
 
+print("load model")
+# lstm-arols
+model_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'courses/lstm_arols/')
+window_size = 5
+vector_size = 128
+#cluster = request.user.ols_cluster
+word2vec_model = gensim.models.Word2Vec.load(model_path+'w2vmodel_'+str(vector_size))
+word_vectors = word2vec_model.wv
+del word2vec_model
+lstm_model = load_model(model_path+'model_0.h5')
+lstm_model.predict(np.zeros((1, window_size, vector_size)))
+print("model test done.")
 
 # 课程列表首页
 class CourseListView(View):
@@ -143,6 +158,26 @@ class CourseLessonView(LoginRequiredMixin, View):
         course_lesson.save()
 
         # lstm-arols
+        #seq = ['882617','883092','882609','882617','882537']
+        log_seq = UserLesson.objects.filter(user=request.user).order_by('-add_time')[:5]
+        #print(log_seq)
+        pred_lessons = list()
+        
+        try:
+            tmp = list()
+            for item in log_seq:
+                item_id = str(item.lesson.arols_id)
+                #print(item_id)
+                if item_id in word_vectors.vocab:
+                    tmp.append(word_vectors[item_id])
+            tmp = np.asarray(tmp)
+            if len(tmp)==window_size:
+                pred_vec = lstm_model.predict(tmp.reshape(1, window_size, vector_size))
+                pred_set = word_vectors.most_similar(positive=pred_vec, topn=5)
+                for rmd_lesson in pred_set:
+                    pred_lessons.append(rmd_lesson[0])
+        except Exception as e:
+            print(e)
         
 
         # 得出学过该课程的同学还学过的课程
@@ -159,6 +194,7 @@ class CourseLessonView(LoginRequiredMixin, View):
             'course': course,
             'all_resources': all_resources,
             'relate_courses': relate_courses,
+            'pred_lessons':pred_lessons,
         })
 
 

@@ -15,14 +15,15 @@ class UserProfile(AbstractUser):
     address = models.CharField(max_length=100, default='', verbose_name='地址')
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name='手机号')
     image = models.ImageField(max_length=100, upload_to='image/%Y/%m', default='image?default.png', verbose_name='头像')
-    ols_motivational = models.FloatField(default=0.0)
-    ols_communicational = models.FloatField(default=0.0)
-    ols_visual = models.FloatField(default=0.0)
-    ols_verbal = models.FloatField(default=0.0)
-    ols_sensing = models.FloatField(default=0.0)
-    ols_intuitive = models.FloatField(default=0.0)
-    ols_sequential = models.FloatField(default=0.0)
-    ols_global = models.FloatField(default=0.0)
+    ols_motivational = models.FloatField(default=0.0, verbose_name='动机')
+    ols_communicational = models.FloatField(default=0.0, verbose_name='交流')
+    ols_visual = models.FloatField(default=0.0, verbose_name='视觉')
+    ols_verbal = models.FloatField(default=0.0, verbose_name='言语')
+    ols_sensing = models.FloatField(default=0.0, verbose_name='感悟')
+    ols_intuitive = models.FloatField(default=0.0, verbose_name='直觉')
+    ols_sequential = models.FloatField(default=0.0, verbose_name='序列')
+    ols_global = models.FloatField(default=0.0, verbose_name='综合')
+    ols_cluster = models.IntegerField(default=0, verbose_name='OLS分类')
 
     class Meta:
         verbose_name = '用户信息'

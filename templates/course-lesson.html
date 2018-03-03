@@ -59,7 +59,9 @@
         <div class="content">
           <div class="mod-tab-menu">
             <ul class="course-menu clearfix">
-              <li><a class="ui-tabs-active active" id="learnOn" href="{% url 'courses:course_lesson' lesson.id %}"><span>课程内容</span></a></li>
+              <li><a class="ui-tabs-active active" id="learnOn" 
+                href="{% url 'courses:course_lesson' lesson.id %}">
+                <span>课程内容</span></a></li>
             </ul>
           </div>
 
@@ -86,9 +88,9 @@
               <h4>AROLS学习资源推荐</h4>
             {#  AROLS学习资源推荐   #}
               <ul class="downlist">
-                {% for course_resource in relate_courses %}
+                {% for course_resource in pred_lessons %}
                 <li>
-                  <span><i class="aui-iconfont"></i>学习资源编号：{{ course_resource.id }}</span>
+                  <span><i class="aui-iconfont"></i>学习资源编号：{{ course_resource }}</span>
                   <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank">学习</a>
                 </li>
                 {% endfor %}
