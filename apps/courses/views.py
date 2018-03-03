@@ -10,9 +10,11 @@ from django.http import HttpResponse
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Course, Lesson, CourseResource, Video
-from operation.models import UserFavorite, UserCourse, CourseComments
+from operation.models import UserFavorite, UserCourse, UserLesson, CourseComments
 from utils.mixin_utils import LoginRequiredMixin
 
+from keras.models import load_model
+import numpy as np
 # Create your views here.
 
 
@@ -133,6 +135,15 @@ class CourseLessonView(LoginRequiredMixin, View):
             # 因为 user，course 是外键，在 UserCourse 实际上存储的是 id ，这些 id 是已经存在的
             user_courses = UserCourse(user=request.user, course=course)
             user_courses.save()
+
+        # 记录用户行为日志
+        course_lesson = UserLesson()
+        course_lesson.lesson = lesson
+        course_lesson.user = request.user
+        course_lesson.save()
+
+        # lstm-arols
+        
 
         # 得出学过该课程的同学还学过的课程
         user_courses = UserCourse.objects.filter(course=course)

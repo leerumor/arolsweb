@@ -57,6 +57,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, verbose_name='课程')
     name = models.CharField(max_length=100, verbose_name='章节名')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+    arols_id = models.CharField(default='', max_length=20, verbose_name='学习资源标识符')
 
     class Meta:
         verbose_name = '章节'

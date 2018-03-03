@@ -7,7 +7,7 @@ from django.db import models
 # Create your models here.
 
 from users.models import UserProfile
-from courses.models import Course
+from courses.models import Course, Lesson
 
 class UserAsk(models.Model):
     name = models.CharField(max_length=20, verbose_name='姓名')
@@ -69,5 +69,14 @@ class UserCourse(models.Model):
 
     class Meta:
         verbose_name = '用户学习过的课程'
+        verbose_name_plural = verbose_name
+
+class UserLesson(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='用户')
+    lesson = models.ForeignKey(Lesson, verbose_name='课程')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = '用户学习过的课程章节'
         verbose_name_plural = verbose_name
 
