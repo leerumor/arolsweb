@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}公开课视频信息 - 慕学在线网{% endblock %}
+{% block title %}公开课视频信息{% endblock %}
 {% load staticfiles %}
 
 {% block custom_css %}
@@ -70,9 +70,11 @@
             {#     章节信息       #}
             {% for lesson in course.get_course_lesson %}
               <div class="chapter chapter-active">
-              <h3>
-                <strong><i class="state-expand"></i>{{ lesson.name }}</strong>
-              </h3>
+              <a href="{% url 'courses:course_lesson' course.id %}">
+                <h3>
+                  <strong><i class="state-expand"></i>{{ lesson.name }}</strong>
+                </h3>
+              </a>
               <ul class="video">
                 {% for video in lesson.get_lesson_video %}
                 <li>

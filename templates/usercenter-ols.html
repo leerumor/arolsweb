@@ -22,26 +22,38 @@
     </div>
   </div>
   <div class="personal_des permessage">
-    <div class="companycenter">
-      <div class="progress">
-       <div class="progress-bar progress-bar-success" style="width:40%">
-         40% Complete
-       </div>
+    <div class="inforcon">
+      <div style="font-size:15px;margin:30px;">
+        <p style="color:#717171;"><b>学习风格</b>表示学习者在学习过程中经常采用的习惯性学习方式和倾向，是学习者在一定的生理特征基础上，在长期的学习活动中逐步形成的相对稳定的个体学习方式偏爱。 </p>
       </div>
-      <div class="progress">
-       <div class="progress-bar progress-bar-info" style="width:60%">
-         40% Complete
-       </div>
-      </div>
-      <div class="progress">
-       <div class="progress-bar progress-bar-warning" style="width:80%">
-         40% Complete
-       </div>
-      </div>
-      <div class="progress">
-       <div class="progress-bar progress-bar-danger" style="width:50%">
-         40% Complete
-       </div>
+      <div style="margin-left:30px; margin-right:30px;">
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{ request.user.ols_motivational }}%">动机</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ request.user.ols_communicational }}%">交流</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ request.user.ols_visual }}%">视觉</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ request.user.ols_verbal }}%">言语</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{ request.user.ols_sensing }}%">感悟</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{ request.user.ols_intuitive }}%">直觉</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ request.user.ols_sequential }}%">序列</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ request.user.ols_global }}%">综合</div>
+        </div>
+        <div style="border-top:1px solid #eaeaea;margin-top:30px;">
+          <a class="button btn-green btn-w100" id="jsUserResetPwd" style="margin:20px auto;width:200px;">重新填写在线学习风格量表</a>
+        </div>
       </div>
       <!--div class="group_list brief">
         {% for user_course in user_courses  %}

@@ -38,3 +38,12 @@
 .progress-bar-danger {
  background-color: #dc3545;
 }
+
+.container {
+  float: left;
+  margin-top: 30px;
+  max-width: 800px;
+}
+.container p {
+  /*font-size:16px;*/
+}

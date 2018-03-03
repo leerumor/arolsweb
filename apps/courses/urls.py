@@ -14,6 +14,8 @@ urlpatterns = [
 
     # 课程章节信息
     url(r'^info/(?P<course_id>\d+)/$', CourseInfoView.as_view(), name='course_info'),
+    # 课程章节详情
+    url(r'^lesson/(?P<course_id>\d+)/$', CourseInfoView.as_view(), name='course_lesson'),
     # 评论页面
 
     url(r'^comment/(?P<course_id>\d+)/$', CommentView.as_view(), name='course_comment'),
