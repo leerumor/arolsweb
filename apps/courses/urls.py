@@ -4,7 +4,7 @@ __author__ = 'zaxlct'
 __date__ = '2017/4/7 上午9:58'
 
 from django.conf.urls import url
-from .views import CourseListView, CourseDetailView, CourseInfoView, CommentView, AddCommentView, VideoPlayView
+from .views import CourseListView, CourseDetailView, CourseInfoView, CourseLessonView, CommentView, AddCommentView, VideoPlayView
 
 urlpatterns = [
     # 课程列表页
@@ -15,7 +15,7 @@ urlpatterns = [
     # 课程章节信息
     url(r'^info/(?P<course_id>\d+)/$', CourseInfoView.as_view(), name='course_info'),
     # 课程章节详情
-    url(r'^lesson/(?P<course_id>\d+)/$', CourseInfoView.as_view(), name='course_lesson'),
+    url(r'^lesson/(?P<lesson_id>\d+)/$', CourseLessonView.as_view(), name='course_lesson'),
     # 评论页面
 
     url(r'^comment/(?P<course_id>\d+)/$', CommentView.as_view(), name='course_comment'),

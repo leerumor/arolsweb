@@ -9,7 +9,7 @@ from django.http import HttpResponse
 
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Course, CourseResource, Video
+from .models import Course, Lesson, CourseResource, Video
 from operation.models import UserFavorite, UserCourse, CourseComments
 from utils.mixin_utils import LoginRequiredMixin
 
@@ -113,6 +113,38 @@ class CourseInfoView(LoginRequiredMixin, View):
 
         all_resources = CourseResource.objects.filter(course=course)
         return render(request, 'course-video.html', {
+            'course': course,
+            'all_resources': all_resources,
+            'relate_courses': relate_courses,
+        })
+
+# 章节信息
+class CourseLessonView(LoginRequiredMixin, View):
+    def get(self, request, lesson_id):
+        lesson = Lesson.objects.get(id=int(lesson_id))
+        course = lesson.course
+
+        # 查询用户是否已经学习了该课程
+        user_courses = UserCourse.objects.filter(user=request.user, course=course)
+        if not user_courses:
+            # 这里不用
+            # user_courses.user = request.user
+            # user_courses.course = course
+            # 因为 user，course 是外键，在 UserCourse 实际上存储的是 id ，这些 id 是已经存在的
+            user_courses = UserCourse(user=request.user, course=course)
+            user_courses.save()
+
+        # 得出学过该课程的同学还学过的课程
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.user.id for user_course in user_courses]
+        all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
+        course_ids = [user_course.course.id for user_course in all_user_courses]
+
+        relate_courses = Course.objects.filter(id__in=course_ids).order_by('-click_nums')[:5]
+
+        all_resources = CourseResource.objects.filter(course=course)
+        return render(request, 'course-lesson.html', {
+            'lesson': lesson,
             'course': course,
             'all_resources': all_resources,
             'relate_courses': relate_courses,

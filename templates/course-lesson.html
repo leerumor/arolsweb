@@ -17,7 +17,8 @@
                 <li><a href="{% url 'index' %}">首页</a>></li>
                 <li><a href="{% url 'courses:course_list' %}">公开课程</a> > </li>
                 <li><a href="{% url 'courses:course_detail' course.id %}">课程详情</a> > </li>
-                <li>章节信息</li>
+                <li><a href="{% url 'courses:course_info' course.id %}">章节信息</a> ></li>
+                <li>课程内容</li>
             </ul>
         </div>
     </section>
@@ -30,7 +31,7 @@
       <div style="height: 15px" class="path">
       </div>
       <div class="hd">
-        <h2 class="l">{{ course.name }}</h2>
+        <h2 class="l">{{ lesson.name }}</h2>
       </div>
       <div class="statics clearfix">
         <div class="static-item ">
@@ -58,35 +59,12 @@
         <div class="content">
           <div class="mod-tab-menu">
             <ul class="course-menu clearfix">
-              <li><a class="ui-tabs-active active" id="learnOn" href="{% url 'courses:course_info' course.id %}"><span>章节</span></a></li>
-              <li><a id="commentOn" class="" href="{% url 'courses:course_comment' course.id %}"><span>评论</span></a></li>
+              <li><a class="ui-tabs-active active" id="learnOn" href="{% url 'courses:course_lesson' lesson.id %}"><span>课程内容</span></a></li>
             </ul>
-          </div>
-          <div id="notice" class="clearfix">
-            <div class="l"><strong>课程公告:</strong> <a href="javascript:void(0)"></a></div>
           </div>
 
           <div class="mod-chapters">
-            {#     章节信息       #}
-            {% for lesson in course.get_course_lesson %}
-              <div class="chapter chapter-active">
-              <a href="{% url 'courses:course_lesson' lesson.id %}">
-                <h3>
-                  <strong><i class="state-expand"></i>{{ lesson.name }}</strong>
-                </h3>
-              </a>
-              <ul class="video">
-                {% for video in lesson.get_lesson_video %}
-                <li>
-                  <a target="_blank" href='{% url 'courses:video_play' video.id %}' class="J-media-item studyvideo">
-                    {{ video.name }}&nbsp;（{{ video.learn_times }}）
-                    <i class="study-state"></i>
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            {% endfor %}
+            <p style="text-align:center;margin:80px;">暂无内容</p>
           </div>
         </div>
         <div class="aside r">
@@ -105,26 +83,16 @@
               </ul>
             </div>
             <div class="box mb40">
-              <h4>讲师提示</h4>
-              <div class="teacher-info">
-                <a href="/u/315464/courses?sort=publish" target="_blank">
-                  <img src='{{ MEDIA_URL }}{{ course.teacher.image }}' width='80' height='80'/>
-                </a>
-                <span class="tit">
-                  <a href="/u/315464/courses?sort=publish" target="_blank">{{ course.teacher.name }}</a>
-                </span>
-                <span class="job">{{ course.teacher.work_position }}</span>
-              </div>
-              <div class="course-info-tip">
-                <dl class="first">
-                  <dt>课程须知</dt>
-                  <dd class="autowrap">{{ course.youneed_konw }}</dd>
-                </dl>
-                <dl>
-                  <dt>老师告诉你能学到什么？</dt>
-                  <dd class="autowrap">{{ course.teacher_tell }}</dd>
-                </dl>
-              </div>
+              <h4>AROLS学习资源推荐</h4>
+            {#  AROLS学习资源推荐   #}
+              <ul class="downlist">
+                {% for course_resource in relate_courses %}
+                <li>
+                  <span><i class="aui-iconfont"></i>学习资源编号：{{ course_resource.id }}</span>
+                  <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank">学习</a>
+                </li>
+                {% endfor %}
+              </ul>
             </div>
 
 
